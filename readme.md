@@ -1,3 +1,5 @@
 # Slide counter
 
-Searches for PPT and PPTX files in given path, then displays how many slides are in each presentation either in CSV output or the console.
+Searches for PPT and PPTX files in given path, 
+then displays how many slides and words are in each presentation as well as total.
+Output is either in CSV format or to the console.
