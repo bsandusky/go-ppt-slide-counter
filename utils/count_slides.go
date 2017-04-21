@@ -23,8 +23,11 @@ func CountSlides(filepaths []string) (error, []Presentation) {
 		p := &Presentation{}
 		p.Filename = v
 		filereader, err := zip.OpenReader(v)
+
+		// ignores files that are not valid zips; ie older versions of ppt or
+		// non-ppt files with ppt or pptx extensions
 		if err != nil {
-			fmt.Println(err)
+			continue
 		}
 
 		for _, file := range filereader.File {
