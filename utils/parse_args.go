@@ -45,15 +45,18 @@ func ParseArgs() (error, []string) {
 	}
 
 	// File(s) or dir(s) input
-	if len(os.Args) > 1 {
-		for _, arg := range os.Args[1:] {
-			input, _ := os.Stat(arg)
-			switch mode := input.Mode(); {
-			case mode.IsDir():
-				parseDirectory(arg)
-			case mode.IsRegular():
-				parseRegular(arg)
-			}
+	for _, arg := range os.Args[1:] {
+		input, err := os.Stat(arg)
+
+		// Ignore non files or directories; this ignores command line flags
+		if err != nil {
+			continue
+		}
+		switch mode := input.Mode(); {
+		case mode.IsDir():
+			parseDirectory(arg)
+		case mode.IsRegular():
+			parseRegular(arg)
 		}
 	}
 

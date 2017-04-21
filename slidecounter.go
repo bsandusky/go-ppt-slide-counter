@@ -1,11 +1,16 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"github.com/bsandusky/slidecounter/utils"
 )
 
 func main() {
+
+	output := flag.String("output", "file", "Select output <file|console>. Defaults to file")
+	flag.Parse()
+
 	err, files := utils.ParseArgs()
 	if err != nil {
 		fmt.Println(err)
@@ -17,5 +22,9 @@ func main() {
 		return
 	}
 
-	utils.OutputToFile(presentations)
+	if *output == "console" {
+		utils.OutputToConsole(presentations)
+	} else {
+		utils.OutputToFile(presentations)
+	}
 }
